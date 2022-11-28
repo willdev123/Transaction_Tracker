@@ -140,7 +140,7 @@ namespace transaction_tracker{
                 switch(inp){
                     case "1": Manage_Transactions(username); break;
                     case "2": Manage_Accounts(username); break;
-                    case "3": Logout(); break;
+                    case "3": Auth(); break;
                     default: Console.WriteLine("Invalid Input!!"); break;
                 };
                 inp_validation_count++;
@@ -520,7 +520,7 @@ namespace transaction_tracker{
             string? _acc;
             // Account 
             Console.WriteLine("\n==Filtering Transactions==");
-            Console.Write("select your accounts(Press Enter to skip or enter any value to proceed): ");
+            Console.Write("Press any key to select your account or enter to skip: ");
             string? acc_val = Convert.ToString(Console.ReadLine());
             obj.Account_Id = acc_val;
             if(acc_val != "") {
@@ -805,20 +805,24 @@ namespace transaction_tracker{
             }
             return id;
         }
-        public static bool Num_Validation(string? num_string) {
+  public static bool Num_Validation(string? num_string) {
             bool result = true;
+            int count=0;
             if(num_string == ""){
                 result = false;
             } else {
                 for(int i=0; i < num_string.Length ; i++) {
-                    if (!((int)num_string[i] >= 48 && (int)num_string[i] <= 57) || !((int)num_string[i] >= 48 && (int)num_string[i] <= 57)) {
+                    if (!((int)num_string[i] >= 48 && (int)num_string[i] <= 57) && (int)num_string[i]!=46){
                         result = false;
-                    } 
-                    if (i == 0) {
+                    } else if((int)num_string[i]==46){
+                        if(count>0)result=false;
+                        count++;
+                    }
+                }
+                if (count==0) {
                         if ((int)num_string[0] == 48) {
                             result = false;
                         }
-                    }
                 }
             }
             return result;
@@ -842,7 +846,6 @@ namespace transaction_tracker{
             }
             return result;
         }
-
         public static void Logout() {
             Auth();
         }
