@@ -33,3 +33,14 @@ create table profile(
 username varchar(20) collate utf8mb4_0900_as_cs,
 password varchar(20),
 primary key(username));
+
+# Database name
+
+create database transaction_tracker;
+
+# Packages Required
+
+MySql.Data
+MySql.Data.MySqlClient
+
+!! Please create datababse, related tables and use your mysql database connection instance if u want to run the code.!!
